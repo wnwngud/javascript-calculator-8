@@ -17,22 +17,32 @@ class App {
   }
   
   parsing(inputStr){
-    if(inputStr==="") return 0;
     // 공백이면 결과로 0을 리턴
+    if(inputStr==="") return 0;
 
-    // 공백이 아니면
-    // 파싱 작업 후, 양수만 반환
-    let delimiter = /[,:]/;
+    // 공백이 아니면 파싱 작업 수행
+    let tempDelimiter = ",:";
 
-    let numArray = inputStr.split(delimiter)
+    // 커스텀 구분자 처리
+    if(inputStr.slice(0, 2) === '//' && inputStr.slice(3, 5) === '\\n'){
+      // 기존 구분자에 커스텀 구분자 추가
+      tempDelimiter += `${inputStr[2]}`;
+      inputStr = inputStr.slice(5);
+    }
+
+    let delimiter = new RegExp(`[${tempDelimiter}]`);
+    let numArray = inputStr.split(delimiter);
+
     return(numArray)
   }
 
   calculate(numArray){
+    if (numArray === 0) return 0;
+
     let sum = 0;
 
+    // 문자를 정수로 변환 후 더하기 
     for(let i of numArray){
-      // 문자를 정수로 변환 후 더하기 
       sum+=Number(i);
     }
 
