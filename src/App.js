@@ -8,8 +8,9 @@ class App {
       );
 
       let numArray = this.parsing(inputStr)
+      let result = this.calculate(numArray)
 
-      MissionUtils.Console.print("결과 : ")
+      MissionUtils.Console.print(`결과 : ${result}`)
 
     } catch(error){
     }
@@ -28,6 +29,17 @@ class App {
     if(checkStr.test(inputStr)){
       return inputStr.split(/[,:]/);
     }
+  }
+
+  calculate(numArray){
+    let sum = 0;
+
+    for(let i of numArray){
+      // 문자를 정수로 변환 후 더하기 
+      sum+=Number(i);
+    }
+
+    return sum;
   }
 }
 
